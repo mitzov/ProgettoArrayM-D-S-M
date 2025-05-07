@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Product } from '../product.model'; // Importiamo l'interfaccia per il tipo Product
+import { Product } from '../product';
 
 @Component({
   selector: 'app-product-list',
@@ -7,24 +7,37 @@ import { Product } from '../product.model'; // Importiamo l'interfaccia per il t
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent {
-  // Array di prodotti iniziali
   products: Product[] = [
-    { name: 'Prodotto 1', price: 100, description: 'Descrizione prodotto 1' },
-    { name: 'Prodotto 2', price: 200, description: 'Descrizione prodotto 2' },
-    { name: 'Prodotto 3', price: 150, description: 'Descrizione prodotto 3' },
-    { name: 'Prodotto 4', price: 50, description: 'Descrizione prodotto 4' },
-    { name: 'Prodotto 5', price: 300, description: 'Descrizione prodotto 5' }
+    { name: 'Laptop', price: 1200, description: 'Un potente laptop per sviluppatori.' },
+    { name: 'Smartphone', price: 800, description: 'Uno smartphone di ultima generazione.' },
+    { name: 'Auricolari', price: 100, description: 'Auricolari bluetooth con riduzione del rumore.' },
+    { name: 'Monitor', price: 300, description: 'Monitor 4K da 27 pollici.' },
+    { name: 'Mouse', price: 50, description: 'Mouse wireless ergonomico.' }
   ];
 
-  selectedProduct: Product | null = null;
+  selectedProduct?: Product;
 
-  // Funzione per selezionare un prodotto
-  selectProduct(product: Product): void {
+  newProduct: Product = { name: '', price: 0, description: '' };
+
+  selectProduct(product: Product) {
     this.selectedProduct = product;
   }
 
-  // Funzione per eliminare un prodotto dalla lista
-  deleteProduct(index: number): void {
+  deleteProduct(index: number) {
+    const deletedProduct = this.products[index];
     this.products.splice(index, 1);
+    if (this.selectedProduct === deletedProduct) {
+      this.selectedProduct = undefined;
+    }
+  }
+  addProduct() {
+    if (
+      this.newProduct.name.trim() &&
+      this.newProduct.description.trim() &&
+      this.newProduct.price > 0
+    ) {
+      this.products.push({ ...this.newProduct });
+      this.newProduct = { name: '', price: 0, description: '' };
+    }
   }
 }

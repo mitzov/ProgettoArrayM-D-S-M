@@ -1,1 +1,13 @@
-<p>product-detail works!</p>
+<div class="card mt-4">
+  <div *ngIf="product; else noProduct" class="card-body">
+    <h5 class="card-title">{{ product.name }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Prezzo: €{{ product.price }}</h6>
+    <p class="card-text">{{ product.description }}</p>
+  </div>
+
+  <template #noProduct>
+    <div class="card-body">
+      <p class="text-muted">Nessun prodotto selezionato.</p>
+    </div>
+  </template>
+</div>

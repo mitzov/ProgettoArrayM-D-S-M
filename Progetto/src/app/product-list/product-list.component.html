@@ -1,1 +1,65 @@
-<p>product-list works!</p>
+<div class="container mt-4">
+    <h2>Lista Prodotti</h2>
+  
+    <ul class="list-group">
+      <li
+        class="list-group-item d-flex justify-content-between align-items-center"
+        *ngFor="let product of products; let i = index"
+      >
+        <span (click)="selectProduct(product)" style="cursor: pointer;">
+          {{ product.name }} - €{{ product.price }}
+        </span>
+        <button
+          class="btn btn-danger btn-sm"
+          (click)="deleteProduct(i); $event.stopPropagation();"
+        >
+          Elimina
+        </button>
+      </li>
+    </ul>
+  
+    <h3 class="mt-4">Aggiungi Prodotto</h3>
+  
+    <form (ngSubmit)="addProduct()" class="row g-3" #form="ngForm">
+      <div class="col-md-4">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Nome"
+          [(ngModel)]="newProduct.name"
+          name="name"
+          required
+        />
+      </div>
+  
+      <div class="col-md-4">
+        <input
+          type="number"
+          class="form-control"
+          placeholder="Prezzo"
+          [(ngModel)]="newProduct.price"
+          name="price"
+          required
+          min="0.01"
+          step="0.01"
+        />
+      </div>
+  
+      <div class="col-md-4">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Descrizione"
+          [(ngModel)]="newProduct.description"
+          name="description"
+          required
+        />
+      </div>
+  
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Aggiungi</button>
+      </div>
+    </form>
+  
+    <app-product-detail [product]="selectedProduct"></app-product-detail>
+  </div>

@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Product } from '../product';
 
 @Component({
   selector: 'app-product-detail',
-  imports: [],
   templateUrl: './product-detail.component.html',
-  styleUrl: './product-detail.component.css'
+  styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent {
-
+  @Input() product?: Product;
 }
